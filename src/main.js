@@ -4,10 +4,15 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import 'lib-flexible'
-import { Circle, Field, Toast } from 'vant'
-Vue.use(Circle)
-Vue.use(Field)
-Vue.use(Toast)
+import vant from './vant/vant'
+import { getFn, postFn, loadingTip, clearTip, errorTip, successTip } from '@/api/axiosVant'
+Vue.use(vant)
+Vue.prototype.$get = getFn
+Vue.prototype.$post = postFn
+Vue.prototype.$loadingTip = loadingTip
+Vue.prototype.$clearTip = clearTip
+Vue.prototype.$errorTip = errorTip
+Vue.prototype.$successTip = successTip
 
 Vue.config.productionTip = false
 

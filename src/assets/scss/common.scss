@@ -1,1 +1,14 @@
-$themeColor: #3385ff;
+$themeColor: #48adf7;
+$grayColor:#989898;
+$yellowColor:#fba22d;
+$fontGray:#8E8E93;
+
+@mixin lineNum($line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  /*显示的行数*/
+  -webkit-box-orient: vertical;
+
+}

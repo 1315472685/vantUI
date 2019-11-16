@@ -1,28 +1,20 @@
 <template>
   <div id="app">
-    <div class="box"></div>
-
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-
     <router-view />
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex';
 export default {
   name: 'App',
-  // created () {
-  //   let screenW = window.screen.width;
-
-  //   if (screenW > 414) {
-  //     screenW = 414
-  //   }
-  //   console.log(screenW)
-  //   document.getElementsByTagName("html")[0].style.fontSize =
-  //     screenW / 16 + "px";
-  // }
+  created () {
+    // console.log(window.screen.height)
+    // console.log(window.screen.availHeight)
+    this.boxHeightFn(window.screen.availHeight)
+  },
+  methods: {
+    ...mapMutations(['boxHeightFn'])
+  }
 }
 </script>
 
@@ -30,27 +22,15 @@ export default {
 * {
   padding: 0;
   margin: 0;
+  font-weight: normal;
+  list-style: none;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  .box {
-    width: 375px;
-    height: 250px;
-    background: $themeColor;
-  }
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>

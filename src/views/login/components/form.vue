@@ -3,7 +3,7 @@
     <van-cell-group>
       <van-field
         v-if="Number(navIndex)===0"
-        @input="changeVal"
+        @input="changeVal(true)"
         class="input"
         v-model.trim="info.username"
         clearable
@@ -87,8 +87,8 @@ export default {
   },
   methods: {
     // 传值给login组件
-    changeVal () {
-      this.$emit('changeVal', this.info)
+    changeVal (flag) {
+      this.$emit('changeVal', this.info, flag)
     },
     // 获取验证码以及倒计时
     sendCode () {

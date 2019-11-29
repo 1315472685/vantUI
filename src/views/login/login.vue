@@ -1,5 +1,5 @@
 <template>
-  <div class="login" :style="{ height: boxHeight+'px'}">
+  <div v-if="show" class="login" :style="{ height: boxHeight+'px'}">
     <div class="box">
       <van-icon class="icon" name="fire-o" />
     </div>
@@ -25,11 +25,23 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import { ImagePreview } from 'vant';
 import formVue from './components/form';
 export default {
   name: 'login',
   data () {
     return {
+      img: [
+        'http://img14.360buyimg.com/ads/jfs/t1/89631/4/2830/247346/5dd75471E786c138e/0e93e555b700c061.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/69976/24/4638/168255/5d2c4b63Ea4d3140c/bf04c4925af64fd9.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/50441/26/5041/142738/5d2c4b63E458d6102/094f603ead846dbc.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/59839/19/4835/73463/5d302b40E0b46e5fc/346e6da2a5fcb176.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/56945/17/5029/110354/5d2c4ab0E964eb72b/fca6f95c47502657.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/33793/7/14423/134835/5d2ebe8cE27195ef3/1a1ef9273bda14f7.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/58566/23/5037/84902/5d2c4a9aE4b80b73f/2891d495b7aa5104.jpg',
+        'http://img14.360buyimg.com/ads/jfs/t1/77291/13/4603/111311/5d2c4abeE45de34d3/b9aafd2bae05e5cc.jpg'
+      ],
+      show: false,
       formGroup: {},
       checked: [],
       navIndex: 0,
@@ -43,16 +55,57 @@ export default {
     ...mapState(['boxHeight'])
   },
   created () {
+    this.getOpenid()
     // 获取缓存的账号密码
     this.getLocalPass()
+
+    ImagePreview({
+      images: this.img,
+      startPosition: 1,
+      onClose () {
+        // do something
+      }
+    })
   },
   methods: {
+    // 获取openid
+    getOpenid () {
+      console.log(window.location.origin)
+      if (
+        this.isWeiXin() &&
+        window.location.origin !== 'http://store-yufa.zmjubao.com'
+      ) {
+        // 是微信浏览器
+        let loginFlag = sessionStorage.getItem('login')
+        let url = `${window.location.origin}/Login/getCode`
+        if (!loginFlag) {
+          sessionStorage.setItem('login', true)
+          window.location.href = url
+        } else {
+          this.show = true
+        }
+      } else {
+        // 不是微信浏览器
+        this.show = true
+      }
+    },
+    // 判断是否为微信浏览器
+    isWeiXin () {
+      var ua = window.navigator.userAgent.toLowerCase()
+      if (ua.match(/MicroMessenger/i)) {
+        return true
+      } else {
+        return false
+      }
+    },
     // 获取缓存的账号密码，默认是否选中记住密码
     getLocalPass () {
       let localPass = localStorage.getItem('pass')
       this.localPass = JSON.parse(localPass)
       if (localPass) {
         this.checked = ['true']
+        this.formGroup.username = this.localPass.phone
+        this.formGroup.password = this.localPass.surePass
       }
     },
     // 是否记住密码
@@ -85,6 +138,7 @@ export default {
             username: this.formGroup.username,
             password: this.formGroup.password
           }
+          console.log(data)
           if (!data.username || !data.password) {
             this.$errorTip('请填写完整内容')
             return false
@@ -126,10 +180,20 @@ export default {
       })
     },
     // 接收子组件修改值--------------------------------
-    valFn (i) {
+    valFn (i, flag) {
+      console.log(i, flag)
       this.formGroup = i
       if (this.localPass) {
         // 判断缓存的账号和现在的账号是否一致，不一致的话取消记住密码，以及密码
+        if (i.username === this.localPass.phone) {
+          this.formGroup.password = this.localPass.surePass
+          this.checked = ['true']
+        } else {
+          if (flag === true) {
+            this.formGroup.password = '';
+            this.checked = []
+          }
+        }
       }
     }
     // --------------------------------

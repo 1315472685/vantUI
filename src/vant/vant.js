@@ -1,5 +1,5 @@
 // 导入自己需要的组件
-import { Icon, Tab, Tabs, Field, cellGroup, Button, Checkbox, CheckboxGroup } from 'vant'
+import { Icon, Tab, Tabs, Field, cellGroup, Button, Checkbox, CheckboxGroup, ImagePreview } from 'vant'
 const vant = {
   install: function (Vue) {
     Vue.use(Icon)
@@ -10,6 +10,7 @@ const vant = {
       .use(Button)
       .use(Checkbox)
       .use(CheckboxGroup)
+      .use(ImagePreview)
   }
 }
 export default vant

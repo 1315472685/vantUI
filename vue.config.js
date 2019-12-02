@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 const name = 'practice Pro'
@@ -18,7 +18,6 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    // proxyTable  proxy
     proxy: {
       '/api': {
         target: 'http://api-dev.zmjubao.com', // 源地址

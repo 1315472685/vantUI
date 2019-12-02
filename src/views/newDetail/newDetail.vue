@@ -78,7 +78,7 @@ export default {
     }
   },
   created () {
-    this.getList()
+    // this.getList()
     if (checkUA().isAndroid) {
       this.isAndroid = true
     } else if (checkUA().isIOS) {

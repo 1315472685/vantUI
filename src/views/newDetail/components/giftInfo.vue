@@ -13,6 +13,7 @@
           <div class="ratio">
             <h3 v-text="'￥'+info.goods.sale_price"></h3>
           </div>
+          <!-- v-if="info.goods.is_presell===1" -->
           <b v-if="info.goods.is_presell===1" class="advanceSale">预售:{{info.goods.booking_time}}发货</b>
         </div>
       </div>

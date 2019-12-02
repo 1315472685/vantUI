@@ -15,12 +15,12 @@
           <div class="oldPrice" v-if="info.goods_third!==null&&Number(info.goods_third.coupon)!==0">
             <i>{{info.sale_price}}</i>
           </div>
-          <div class="rebateBox">
+          <!-- <div class="rebateBox">
             <span
               v-if="info.goods_third!==null&&Number(info.goods_third.rebate)>0"
               class="rebate"
             >返利{{info.goods_third.rebate}}元</span>
-          </div>
+          </div>-->
         </div>
         <div>
           <small>{{info.sales_num}} 人已抢</small>

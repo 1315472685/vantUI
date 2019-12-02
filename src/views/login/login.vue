@@ -1,269 +1,180 @@
 <template>
-  <div v-if="show" class="login" :style="{ height: boxHeight+'px'}">
-    <div class="box">
-      <van-icon class="icon" name="fire-o" />
-    </div>
-    <div class="content">
-      <van-tabs class="tabs" v-model="navIndex">
-        <van-tab title="密码登录">
-          <form-vue @changeVal="valFn" :navIndex="navIndex"></form-vue>
-          <van-button class="btn" type="primary" @click="login" size="large">登录</van-button>
-          <div class="passGroup">
-            <van-checkbox-group v-model="checked">
-              <van-checkbox name="true">记住密码</van-checkbox>
-            </van-checkbox-group>
-            <span>忘记密码</span>
-          </div>
-        </van-tab>
-        <van-tab title="验证码登录">
-          <form-vue @changeVal="valFn" :navIndex="navIndex"></form-vue>
-          <van-button class="btn" type="primary" @click="login" size="large">登录</van-button>
-        </van-tab>
-      </van-tabs>
+  <div v-if="show" class="login">
+    <!-- <div class="box2"></div> -->
+    <!-- <a href="zmjubao://open_zmjubao">打开聚宝</a> -->
+    <img src="@/assets/img/appicon.png" alt />
+    <nav>
+      <span :class="{'active':nav===1}" @click="navFn(1)">密码登录</span>
+      <span class="span" :class="{'active':nav===0}" @click="navFn(0)">验证码登录</span>
+    </nav>
+    <component :is="compon"></component>
+    <div class="loginList">
+      <div class="loginTitle">
+        <span></span>
+        <b>第三方账号快速登录</b>
+        <span></span>
+      </div>
+      <div class="iconGroup">
+        <img src="@/assets/img/icon_weixin.png" alt />
+        <img src="@/assets/img/icon_zhifubao.png" alt />
+        <img src="@/assets/img/icon_qq.png" alt />
+      </div>
     </div>
   </div>
 </template>
 <script>
+import loginVue from './components/loginVue';
+import passVue from './components/passVue';
 import { mapState } from 'vuex';
-import { ImagePreview } from 'vant';
-import formVue from './components/form';
 export default {
   name: 'login',
+  components: {
+    loginVue,
+    passVue
+  },
   data () {
     return {
-      img: [
-        'http://img14.360buyimg.com/ads/jfs/t1/89631/4/2830/247346/5dd75471E786c138e/0e93e555b700c061.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/69976/24/4638/168255/5d2c4b63Ea4d3140c/bf04c4925af64fd9.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/50441/26/5041/142738/5d2c4b63E458d6102/094f603ead846dbc.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/59839/19/4835/73463/5d302b40E0b46e5fc/346e6da2a5fcb176.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/56945/17/5029/110354/5d2c4ab0E964eb72b/fca6f95c47502657.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/33793/7/14423/134835/5d2ebe8cE27195ef3/1a1ef9273bda14f7.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/58566/23/5037/84902/5d2c4a9aE4b80b73f/2891d495b7aa5104.jpg',
-        'http://img14.360buyimg.com/ads/jfs/t1/77291/13/4603/111311/5d2c4abeE45de34d3/b9aafd2bae05e5cc.jpg'
-      ],
+      nav: 1,
       show: false,
-      formGroup: {},
-      checked: [],
-      navIndex: 0,
-      localPass: null // 缓存的账号密码
+      compon: 'passVue'
     }
   },
-  components: {
-    formVue
-  },
-  computed: {
-    ...mapState(['boxHeight'])
-  },
   created () {
-    this.getOpenid()
-    // 获取缓存的账号密码
-    this.getLocalPass()
+    localStorage.removeItem('huancun')
 
-    ImagePreview({
-      images: this.img,
-      startPosition: 1,
-      onClose () {
-        // do something
-      }
-    })
-  },
-  methods: {
-    // 获取openid
-    getOpenid () {
-      console.log(window.location.origin)
-      if (
-        this.isWeiXin() &&
-        window.location.origin !== 'http://store-yufa.zmjubao.com'
-      ) {
-        // 是微信浏览器
-        let loginFlag = sessionStorage.getItem('login')
-        let url = `${window.location.origin}/Login/getCode`
-        if (!loginFlag) {
-          sessionStorage.setItem('login', true)
-          window.location.href = url
-        } else {
-          this.show = true
-        }
+    if (this.isWeiXin() && this.httpUrl != 'http://store-yufa.zmjubao.com') {
+      // 是微信浏览器
+      let loginFlag = sessionStorage.getItem('login')
+      let url = `${this.httpUrl}/Login/getCode`
+      if (!loginFlag) {
+        sessionStorage.setItem('login', true)
+
+        window.location.href = url
       } else {
-        // 不是微信浏览器
         this.show = true
       }
-    },
-    // 判断是否为微信浏览器
+    } else {
+      // 不是微信浏览器
+      this.show = true
+    }
+    if (localStorage.getItem('forgetPass') === 'true') {
+      this.nav = 1
+      this.compon = 'passVue';
+    }
+  },
+  computed: {
+    ...mapState(['loginFlag', 'httpUrl'])
+  },
+  methods: {
     isWeiXin () {
       var ua = window.navigator.userAgent.toLowerCase()
-      if (ua.match(/MicroMessenger/i)) {
+      if (ua.match(/MicroMessenger/i) == 'micromessenger') {
         return true
       } else {
         return false
       }
     },
-    // 获取缓存的账号密码，默认是否选中记住密码
-    getLocalPass () {
-      let localPass = localStorage.getItem('pass')
-      this.localPass = JSON.parse(localPass)
-      if (localPass) {
-        this.checked = ['true']
-        this.formGroup.username = this.localPass.phone
-        this.formGroup.password = this.localPass.surePass
-      }
-    },
-    // 是否记住密码
-    rememberPass () {
-      if (this.checked.length > 0) {
-        // 记住密码
-        let pass = {
-          phone: this.formGroup.username,
-          surePass: this.formGroup.password,
-          remember: true
-        }
-        localStorage.setItem('pass', JSON.stringify(pass))
-      } else {
-        // 清空密码
-        if (
-          this.localPass &&
-          Number(this.formGroup.username) === Number(this.localPass.phone)
-        ) {
-          localStorage.removeItem('pass')
-        }
-      }
-    },
-    // 登录操作
-    login () {
-      this.$loadingTip('登录中...')
-      switch (Number(this.navIndex)) {
+    navFn (i) {
+      switch (i) {
         case 0:
-          // 密码登录
-          let data = {
-            username: this.formGroup.username,
-            password: this.formGroup.password
-          }
-          console.log(data)
-          if (!data.username || !data.password) {
-            this.$errorTip('请填写完整内容')
-            return false
-          }
-          this.passLogin(data)
-          break;
+          this.compon = 'loginVue';
+          break
         case 1:
-          // 手机号码登录
-          data = {
-            type: 1,
-            phone: this.formGroup.username,
-            code: this.formGroup.code
-          }
-          for (let i in data) {
-            if (!data[i]) {
-              this.$errorTip('请填写完整内容')
-              return false
-            }
-          }
-          this.telLogin(data)
-          break;
+          this.compon = 'passVue';
+          break
+        default:
+          break
       }
-    },
-    // 密码登录
-    passLogin (data) {
-      this.$post('/login', data).then(res => {
-        if (res.data.status === 200) {
-          this.$successTip('登录成功！')
-          this.rememberPass()
-        }
-      })
-    },
-    // 手机号码登录
-    telLogin (data) {
-      this.$post(`/login`, data).then(res => {
-        if (res.data.status === 200) {
-          this.$successTip('登录成功！')
-        }
-      })
-    },
-    // 接收子组件修改值--------------------------------
-    valFn (i, flag) {
-      console.log(i, flag)
-      this.formGroup = i
-      if (this.localPass) {
-        // 判断缓存的账号和现在的账号是否一致，不一致的话取消记住密码，以及密码
-        if (i.username === this.localPass.phone) {
-          this.formGroup.password = this.localPass.surePass
-          this.checked = ['true']
-        } else {
-          if (flag === true) {
-            this.formGroup.password = '';
-            this.checked = []
-          }
-        }
-      }
+      this.nav = i
     }
-    // --------------------------------
   }
 }
 </script>
 <style lang="scss" scoped>
 .login {
+  text-align: center;
+  min-height: -webkit-fill-available;
   background: #fff;
-  .box {
-    text-align: center;
-    background: $themeColor;
-    height: 250px;
-    .icon {
-      margin-top: 80px;
-      color: #fff;
-      font-size: 60px;
-    }
+
+  .box2 {
+    width: 100%;
+    height: 200px;
+    background: #000;
   }
-  .content {
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin: 100px auto 40px;
+  }
+
+  nav {
     position: relative;
-    overflow: hidden;
-    border-radius: 6px;
-    margin-top: -40px;
-    background: #fff;
-    width: 90%;
-    margin-left: 5%;
-    box-shadow: 0 2px 12px 0 rgba(103, 125, 130, 0.29);
-    .tabs {
-      padding-top: 10px;
-    }
-    .btn {
-      box-shadow: 1px 2px 12px #48adf7a1;
-      background: $themeColor;
-      border-color: $themeColor;
-      margin-top: 20px;
-    }
-    .passGroup {
-      box-sizing: border-box;
-      width: 100%;
+    height: 32px;
+    display: flex;
+    margin: 0 30px 20px;
+    border-bottom: 2px solid rgba(200, 199, 204, 1);
+
+    span {
       position: absolute;
-      bottom: 30px;
-      left: 0;
-      padding: 0 30px 0 20px;
-      display: flex;
-      align-items: center;
-      span {
-        flex: 1;
-        text-align: right;
-        color: $yellowColor;
+      bottom: -2px;
+      border-bottom-radius: 2px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(200, 199, 204, 1);
+      text-align: center;
+      font-size: 16px;
+      line-height: 18px;
+      color: rgba(142, 142, 147, 1);
+      width: 50%;
+
+      &.active {
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 2px;
+        font-weight: bold;
+        border-bottom: 2px solid rgba(253, 24, 63, 1);
+        color: #333;
+      }
+
+      &.span {
+        left: 50%;
       }
     }
   }
-}
-</style>
-<style>
-/* 登录页面 */
-.login .van-tab span {
-  font-size: 16px;
-}
-.login .van-tabs__line {
-  background-color: #48adf7 !important;
-}
-.login .van-tab__pane,
-.login .van-tab__pane-wrapper {
-  padding: 0 20px 70px 20px;
-}
-.login .van-button--large {
-  border-radius: 30px;
-  height: 40px;
-  line-height: 40px;
+
+  .loginList {
+    display: none;
+
+    .loginTitle {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      font-size: 14px;
+      color: rgba(142, 142, 147, 1);
+
+      b {
+        padding: 0 10px;
+      }
+
+      span {
+        display: block;
+        width: 50px;
+        height: 1px;
+        background: rgba(200, 199, 204, 1);
+      }
+    }
+
+    .iconGroup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        margin: 40px 20px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { errorTip } from '@/api/axiosVant'
+import router from '@/router'
 const service = axios.create({
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 10000 // request timeout
@@ -9,9 +10,13 @@ let noTip = false// 是否提示错误信息
 service.interceptors.request.use(
   config => {
     console.log(config)
-    if (localStorage.getItem('token')) {
+    if (config.headers) {
+      config.headers['token'] = localStorage.getItem('token')
+    } else {
+      config.headers = {}
       config.headers['token'] = localStorage.getItem('token')
     }
+
     if (config.headers.toastMsg) {
       noTip = true
     } else {
@@ -34,6 +39,9 @@ service.interceptors.response.use(
   // */
   response => {
     if (response.data.status !== 200) {
+      if (response.data.status === 100) {
+        router.replace({ path: '/login' })
+      }
       if (!noTip) errorTip(response.data.message)
     }
     return response

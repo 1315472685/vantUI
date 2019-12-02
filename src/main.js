@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import 'lib-flexible'
+import './promise.js'
 import vant from './vant/vant'
 import { getFn, postFn, loadingTip, clearTip, errorTip, successTip } from '@/api/axiosVant'
 Vue.use(vant)

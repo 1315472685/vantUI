@@ -109,7 +109,12 @@ export default {
     // 发送验证码
     codeAxios (data) {
       console.log(data)
-      this.$post(`/login/sendMsgCode`, data, { toastMsg: 1 }).then(res => {})
+      this.$post(
+        `/login/sendMsgCode`,
+        data,
+        { toastMsg: 1 },
+        { toastMsg: true }
+      ).then(res => {})
     },
     // 获取缓存的账号密码
     getLocalPass () {
@@ -126,7 +131,7 @@ export default {
 <style lang="scss">
 .loginForm {
   .input {
-    padding: 15px 10px;
+    padding: 7px 5px;
   }
   .sendBtn {
     background: transparent;
@@ -147,7 +152,7 @@ export default {
   opacity: 0 !important;
 }
 .loginForm {
-  margin-top: 15px;
+  margin-top: 7px;
 }
 .van-tabs__wrap.van-hairline--top-bottom::after,
 .van-tabs__wrap.van-hairline--top-bottom::after,

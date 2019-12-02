@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, dir)
 }
 const name = 'practice Pro'
@@ -20,13 +20,13 @@ module.exports = {
     },
     // proxyTable  proxy
     proxy: {
-      '/': {
-        target: 'http://store-dev.zmjubao.com', // 源地址
+      '/api': {
+        target: 'http://api-dev.zmjubao.com', // 源地址
         ws: false,
         changeOrigin: true, // 改变源
         secure: false, // https协议
         pathRewrite: {
-          '^/': '/' // 路径重写
+          '^/api': '/api' // 路径重写
         }
       }
     }

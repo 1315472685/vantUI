@@ -20,6 +20,7 @@ export default {
 
 <style lang="scss">
 * {
+  font-style: normal;
   padding: 0;
   margin: 0;
   font-weight: normal;
@@ -28,9 +29,19 @@ export default {
   -webkit-appearance: none;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
+.van-swipe__indicator {
+  background: #000 !important;
+}
+.van-swipe__indicator--active {
+  background: #000 !important;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.detail .desc img {
+  width: 100% !important;
+  height: auto !important;
 }
 </style>

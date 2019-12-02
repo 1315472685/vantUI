@@ -8,10 +8,6 @@ let noTip = false// 是否提示错误信息
 // request interceptor
 service.interceptors.request.use(
   config => {
-    console.log(config)
-    if (localStorage.getItem('token')) {
-      config.headers['token'] = localStorage.getItem('token')
-    }
     if (config.headers.toastMsg) {
       noTip = true
     } else {

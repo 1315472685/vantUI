@@ -8,7 +8,13 @@ function sortFn1 (url, obj, method, headers) {
     headers['api-version'] = '1.5.3'
   }
   var data = JSON.parse(JSON.stringify(obj))
-  data.timestamp = nowDate
+  if (data) {
+    data.timestamp = nowDate
+  } else {
+    data = {}
+    data.timestamp = nowDate
+  }
+
   let link = `url=${url}`
   if (data) { // 有参数
     let objKey = Object.keys(data)
@@ -51,7 +57,12 @@ function sortFn1 (url, obj, method, headers) {
   return headers
 }
 export function postFn (url, data, headers) {
-  data.timestamp = nowDate
+  if (data) {
+    data.timestamp = nowDate
+  } else {
+    data = {}
+    data.timestamp = nowDate
+  }
   headers = sortFn1(url, data, 'post', headers)
   return request({
     url: `${url}`,
@@ -62,7 +73,12 @@ export function postFn (url, data, headers) {
 }
 
 export function getFn (url, data, headers) {
-  data.timestamp = nowDate
+  if (data) {
+    data.timestamp = nowDate
+  } else {
+    data = {}
+    data.timestamp = nowDate
+  }
   headers = sortFn1(url, data, 'get', headers)
   return request({
     url: `${url}`,

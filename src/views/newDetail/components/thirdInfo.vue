@@ -12,9 +12,9 @@
             <template v-if="Number(info.coupon_price)>0">{{info.coupon_price}}</template>
             <template v-else>{{info.sale_price}}</template>
           </h3>
-          <div class="oldPrice" v-if="info.goods_third!==null&&Number(info.goods_third.coupon)!==0">
+          <!-- <div class="oldPrice" v-if="info.goods_third!==null&&Number(info.goods_third.coupon)!==0">
             <i>{{info.sale_price}}</i>
-          </div>
+          </div>-->
           <!-- <div class="rebateBox">
             <span
               v-if="info.goods_third!==null&&Number(info.goods_third.rebate)>0"

@@ -11,6 +11,7 @@
         v-if="info.goods.goods_img_arr===null||info.goods.goods_img_arr.length===0"
       />
       <banner-vue
+        @flag="flagFun"
         v-else-if="info&&info.goods.goods_img_arr!==null"
         :banner="info.goods.goods_img_arr"
       ></banner-vue>
@@ -63,7 +64,7 @@ export default {
     }
   },
   created () {
-    // this.getList()
+    this.getList()
     if (checkUA().isAndroid) {
       this.isAndroid = true
     } else if (checkUA().isIOS) {
@@ -112,18 +113,9 @@ export default {
     flagFun (i) {
       // 属性随手礼
       let obj
-      if (i === 'specsSku' && this.info.module_id === 3) {
-        obj = { flag: 'giftSku' }
-      } else if (i === 'receive') {
-        // 领取优惠券
-        let data = {
-          goods_link: this.info.goods_third.goods_link,
-          module_id: JSON.stringify(this.info.module_id)
-        }
-        obj = { flag: data }
-      } else {
-        obj = { flag: i }
-      }
+      obj = { flag: 'giftSku' }
+
+      console.log(JSON.stringify(obj))
       if (checkUA().isAndroid) {
         console.log('isAndroid')
         obj = JSON.stringify(obj)
@@ -147,7 +139,9 @@ export default {
         module_id: 3,
         page: 1,
         limit: 10,
-        sort: 1
+        sort: 1,
+        elite_id: 0,
+        position: 1
       }
       this.$get('/api/goods-lists', aaaa, {
         AUTHORIZATION: '',
@@ -162,10 +156,8 @@ export default {
 
 <style lang="scss" scoped>
 // 图片详情
-.mainPic {
-  width: 100%;
-  img {
-    width: 100%;
-  }
-}
+// img.mainPic {
+//   width: 100%;
+//   height: 375px;
+// }
 </style>

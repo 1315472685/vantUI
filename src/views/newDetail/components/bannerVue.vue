@@ -25,7 +25,8 @@ export default {
     return {
       index: 0,
       show: false,
-      bannerIndex: 0
+      bannerIndex: 0,
+      flag: false
     }
   },
   methods: {
@@ -33,6 +34,15 @@ export default {
       this.bannerIndex = index
     },
     PreviewFn (i) {
+      if (i) {
+        // 打开
+        this.flag = true
+        this.$emit('flag', 'banner')
+      } else if (this.flag) {
+        // 关闭
+        this.flag = false
+        this.$emit('flag', 'close')
+      }
       this.show = i
       this.index = this.bannerIndex
     }

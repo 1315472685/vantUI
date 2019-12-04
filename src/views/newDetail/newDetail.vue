@@ -6,7 +6,11 @@
       :class="{'active1':info!=null,'none':info.goods_img_arr!==null&&info.goods_img_arr.length===1}"
     >
       <img class="mainPic" v-if="info.goods_img_arr===null" :src="info.img" />
-      <banner-vue v-else-if="info&&info.goods_img_arr!==null" :banner="info.goods_img_arr"></banner-vue>
+      <banner-vue
+        @flag="flagFun"
+        v-else-if="info&&info.goods_img_arr!==null"
+        :banner="info.goods_img_arr"
+      ></banner-vue>
       <div
         class="detail"
         v-if="info"
@@ -64,9 +68,9 @@ export default {
       t: [{ loot_end: 1560783900000, type_id: 3 }],
       info: null,
       // goodId: '6748463170', // 第三方京东
-      goodId: '6748463047', // 第三方淘宝
+      // goodId: '6748463047', // 第三方淘宝
       // goodId: '6748463149', // 第三方天猫
-      // goodId: '6706703244', // 聚宝
+      goodId: '6706703244', // 聚宝
       // goodId: '6689449218', // 折上折铜币
       // goodId: '6651592665', // 折上折金币
       // goodId: '6640515940', // 折上折银币
@@ -137,6 +141,7 @@ export default {
       } else {
         obj = { flag: i }
       }
+      console.log(obj)
       if (checkUA().isAndroid) {
         console.log('isAndroid')
         obj = JSON.stringify(obj)
@@ -160,7 +165,9 @@ export default {
         module_id: 3,
         page: 1,
         limit: 10,
-        sort: 1
+        sort: 1,
+        elite_id: 0,
+        position: 1
       }
       this.$get('/api/goods-lists', aaaa, {
         AUTHORIZATION: '',
@@ -175,4 +182,8 @@ export default {
 
 <style lang="scss" scoped>
 // 图片详情
+// img.mainPic {
+//   width: 100%;
+//   height: 375px;
+// }
 </style>

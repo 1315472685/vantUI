@@ -84,10 +84,9 @@
     padding: 10px 16px 16px;
 
     .biprice {
+      padding: 3px 0;
       text-align: center;
-      line-height: 20px;
       width: 76px;
-      height: 20px;
       background: rgba(253, 24, 63, 1);
       border-radius: 4px;
       font-size: 14px;
@@ -317,7 +316,7 @@
       dt {
         color: #333;
         border-radius: 0.2rem;
-        border: 1px solid #333;
+        border: 1.2px solid #333;
         padding: 0.05rem 0.2rem;
         margin-bottom: 0.2rem;
         font-size: 14px;

@@ -4,16 +4,12 @@ import md5 from 'js-md5'
 let nowDate = parseInt(new Date().getTime() / 1000)
 // 拼接签名
 function sortFn1 (url, obj, method, headers) {
+  console.log(headers)
   if (!headers['api-version']) {
     headers['api-version'] = '1.5.3'
   }
+  headers['X-Ca-Timestamp'] = nowDate
   var data = JSON.parse(JSON.stringify(obj))
-  if (data) {
-    data.timestamp = nowDate
-  } else {
-    data = {}
-    data.timestamp = nowDate
-  }
 
   let link = `url=${url}`
   if (data) { // 有参数
@@ -47,7 +43,17 @@ function sortFn1 (url, obj, method, headers) {
     }
   }
   // 拼接完成
+  console.log(Number(headers['api-version'].split('.').join('')))
+  if (Number(headers['api-version'].split('.').join('')) >= 158) {
+    if (!data && method === 'get') {
+      link += `?timestamp=${nowDate}`
+    } else {
+      link += `&timestamp=${nowDate}`
+    }
+  }
+
   link += '&sign_secret=NevJKwg1DzKmU4jxvjQ7tAqigjc2IRvPMgHS9pwRGeEgoP11uz2sPsHr3BkOzo4rLwvXsjphKNWGfvrLSpdWcHgoJoOrr7UgD9w'
+  console.log(link)
   if (!headers) {
     headers = {}
     headers['X-Ca-Signature'] = md5(link).toUpperCase()
@@ -57,12 +63,6 @@ function sortFn1 (url, obj, method, headers) {
   return headers
 }
 export function postFn (url, data, headers) {
-  if (data) {
-    data.timestamp = nowDate
-  } else {
-    data = {}
-    data.timestamp = nowDate
-  }
   headers = sortFn1(url, data, 'post', headers)
   return request({
     url: `${url}`,
@@ -73,12 +73,6 @@ export function postFn (url, data, headers) {
 }
 
 export function getFn (url, data, headers) {
-  if (data) {
-    data.timestamp = nowDate
-  } else {
-    data = {}
-    data.timestamp = nowDate
-  }
   headers = sortFn1(url, data, 'get', headers)
   return request({
     url: `${url}`,

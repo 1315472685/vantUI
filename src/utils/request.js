@@ -2,7 +2,7 @@ import axios from 'axios'
 import { errorTip } from '@/api/axiosVant'
 const service = axios.create({
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 10000 // request timeout
+  timeout: 100000 // request timeout
 })
 let noTip = false// 是否提示错误信息
 // request interceptor

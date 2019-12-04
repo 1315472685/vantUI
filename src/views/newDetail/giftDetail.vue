@@ -1,35 +1,37 @@
 <template>
-  <div id="app" v-if="info" class="detail2" :class="{'Android':Android}">
-    <!--banner-->
-    <div
-      class="content"
-      :class="{'active1':info!=null,'none':info.goods.goods_img_arr!==null&&info.goods.goods_img_arr.length===1}"
-    >
-      <img
-        class="mainPic"
-        :src="info.goods.img"
-        v-if="info.goods.goods_img_arr===null||info.goods.goods_img_arr.length===0"
-      />
-      <banner-vue
-        @flag="flagFun"
-        v-else-if="info&&info.goods.goods_img_arr!==null"
-        :banner="info.goods.goods_img_arr"
-      ></banner-vue>
-      <div class="detail" v-if="info">
-        <!-- <div class="putOut" v-if="info.module_id!=3&&info.status!=1">
+  <transition name="fade">
+    <div id="app" v-if="info" class="detail2" :class="{'Android':Android}">
+      <!--banner-->
+      <div
+        class="content"
+        :class="{'active1':info!=null,'none':info.goods.goods_img_arr!==null&&info.goods.goods_img_arr.length===1}"
+      >
+        <img
+          class="mainPic"
+          :src="info.goods.img"
+          v-if="info.goods.goods_img_arr===null||info.goods.goods_img_arr.length===0"
+        />
+        <banner-vue
+          @flag="flagFun"
+          v-else-if="info&&info.goods.goods_img_arr!==null"
+          :banner="info.goods.goods_img_arr"
+        ></banner-vue>
+        <div class="detail" v-if="info">
+          <!-- <div class="putOut" v-if="info.module_id!=3&&info.status!=1">
           <img src="../../assets/img/outPut.png" alt="下架" />
-        </div>-->
+          </div>-->
 
-        <!-- 聚宝折上折详情 -->
-        <div class="detail active" v-if="info">
-          <gift-info @flag="flagFun" :info="info" :skuText="skuText"></gift-info>
+          <!-- 聚宝折上折详情 -->
+          <div class="detail active" v-if="info">
+            <gift-info @flag="flagFun" :info="info" :skuText="skuText"></gift-info>
 
-          <!-- 详情 -->
-          <pic-desc :description="info.goods.description"></pic-desc>
+            <!-- 详情 -->
+            <pic-desc :description="info.goods.description"></pic-desc>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 /**
@@ -155,6 +157,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.7s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
+  opacity: 0;
+}
 // 图片详情
 // img.mainPic {
 //   width: 100%;

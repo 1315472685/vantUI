@@ -36,7 +36,7 @@
       </div>
 
       <div class="attr">
-        <dl @click="flagFun('specsSku')">
+        <dl @click="flagFun('giftSku')">
           <dt>规格</dt>
           <dd
             v-if="skuText!==null&&skuText!==undefined&&skuText!=='undefined'&&skuText!==''"

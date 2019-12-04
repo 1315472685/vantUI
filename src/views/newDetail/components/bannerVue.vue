@@ -50,6 +50,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.swiper {
+  min-height: 300px;
+}
 img.goodPic {
   display: block;
   width: 100%;

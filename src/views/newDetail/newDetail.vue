@@ -67,10 +67,10 @@ export default {
       height: '10rem',
       t: [{ loot_end: 1560783900000, type_id: 3 }],
       info: null,
-      // goodId: '6748463170', // 第三方京东
+      goodId: '6748463170', // 第三方京东
       // goodId: '6748463047', // 第三方淘宝
       // goodId: '6748463149', // 第三方天猫
-      goodId: '6706703244', // 聚宝
+      // goodId: '6706703244', // 聚宝
       // goodId: '6689449218', // 折上折铜币
       // goodId: '6651592665', // 折上折金币
       // goodId: '6640515940', // 折上折银币
@@ -162,7 +162,7 @@ export default {
     getList () {
       let aaaa = {
         keyword: '',
-        module_id: 3,
+        module_id: 1,
         page: 1,
         limit: 10,
         sort: 1,

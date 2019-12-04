@@ -56,7 +56,7 @@ export default {
       height: '10rem',
       t: [{ loot_end: 1560783900000, type_id: 3 }],
       info: null,
-      goodId: '1212', // 1212 673
+      goodId: '6754251492', // 1212 673
       linkObj: null,
       skuText: '',
       giftTime: null,
@@ -64,7 +64,7 @@ export default {
     }
   },
   created () {
-    this.getList()
+    // this.getList()
     if (checkUA().isAndroid) {
       this.isAndroid = true
     } else if (checkUA().isIOS) {
@@ -113,7 +113,7 @@ export default {
     flagFun (i) {
       // 属性随手礼
       let obj
-      obj = { flag: 'giftSku' }
+      obj = { flag: i }
 
       console.log(JSON.stringify(obj))
       if (checkUA().isAndroid) {

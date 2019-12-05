@@ -81,7 +81,7 @@
   .price {
     display: flex;
     align-items: flex-end;
-    padding: 10px 16px 16px;
+    padding: 0 16px 6px;
 
     .biprice {
       padding: 3px 0;
@@ -156,7 +156,6 @@
           padding: 1px 3px;
           font-weight: normal;
           display: block;
-          width: 38px;
           background: linear-gradient(136deg,
               rgba(253, 24, 63, 1) 0%,
               rgba(255, 78, 108, 1) 100%);

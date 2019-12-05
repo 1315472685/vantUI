@@ -44,4 +44,10 @@ export default {
   width: 100% !important;
   height: auto !important;
 }
+.swiper.none .c-swipe-pagination-bar {
+  display: none !important;
+}
+.c-swipe-pagination-item.active {
+  background: #000 !important;
+}
 </style>

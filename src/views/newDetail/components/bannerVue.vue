@@ -1,10 +1,15 @@
 <template>
-  <div class="swiper">
-    <van-swipe @change="onChange" :initial-swipe="index">
+  <div class="swiper" :class="{'none':banner.length===1}">
+    <swipe v-model="index" style="text-align: center;">
+      <swipe-item v-for="(item,index) in banner" :key="index">
+        <img @click="PreviewFn(true)" :src="item" class="goodPic" alt="商品图" />
+      </swipe-item>
+    </swipe>
+    <!-- <van-swipe @change="onChange" :initial-swipe="index">
       <van-swipe-item v-for="(item,index) in banner" :key="index">
         <img @click="PreviewFn(true)" :src="item" class="goodPic" alt="商品图" />
       </van-swipe-item>
-    </van-swipe>
+    </van-swipe>-->
     <!-- 放大图 -->
     <van-image-preview
       v-model="show"
@@ -20,7 +25,7 @@
 <script>
 export default {
   name: 'bannerVue',
-  props: ['banner'],
+  props: ['banner', 'version'],
   data () {
     return {
       index: 0,
@@ -29,22 +34,27 @@ export default {
       flag: false
     }
   },
+  created () {
+    console.log(this.version)
+  },
   methods: {
     onChange (index) {
       this.bannerIndex = index
     },
     PreviewFn (i) {
-      if (i) {
-        // 打开
-        this.flag = true
-        this.$emit('flag', 'banner')
-      } else if (this.flag) {
-        // 关闭
-        this.flag = false
-        this.$emit('flag', 'close')
+      if (this.version && Number(this.version.split('.').join('')) >= 158) {
+        if (i) {
+          // 打开
+          this.flag = true
+          this.$emit('flag', 'banner')
+        } else if (this.flag) {
+          // 关闭
+          this.flag = false
+          this.$emit('flag', 'close')
+        }
+        this.show = i
+        this.index = this.bannerIndex
       }
-      this.show = i
-      this.index = this.bannerIndex
     }
   }
 }

@@ -5,7 +5,12 @@ import store from './store'
 import './registerServiceWorker'
 import 'lib-flexible'
 import vant from './vant/vant'
+import 'c-swipe/dist/swipe.css'
+import { Swipe, SwipeItem } from 'c-swipe'
 import { getFn, postFn, loadingTip, clearTip, errorTip, successTip } from '@/api/axiosVant'
+// 全局注册组件
+Vue.component('swipe', Swipe)
+Vue.component('swipe-item', SwipeItem)
 Vue.use(vant)
 Vue.prototype.$get = getFn
 Vue.prototype.$post = postFn

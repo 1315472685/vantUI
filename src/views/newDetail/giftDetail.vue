@@ -14,6 +14,7 @@
         <banner-vue
           @flag="flagFun"
           v-else-if="info&&info.goods.goods_img_arr!==null"
+          :version="linkObj.version"
           :banner="info.goods.goods_img_arr"
         ></banner-vue>
         <div class="detail" v-if="info">
@@ -98,7 +99,7 @@ export default {
         : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJTWSIsImlhdCI6MTU2OTU3ODk3MiwiZXhwIjoxNTcwMTgzNzcyLCJpZCI6NDE2LCJuaWNrbmFtZSI6Ilx1OGRkMVx1NWY5N1x1NWZlYiIsImF2YXRhciI6Imh0dHBzOlwvXC96bWp1YmFvLm9zcy1jbi1iZWlqaW5nLmFsaXl1bmNzLmNvbVwvb3RoZXJcL3ptanViYW9cL3VzZXJcLzQxNmZpbGVzXC8yMDE5XC8wOVwvYzRjMTMwNDI2NS5qcGciLCJzZXgiOjEsInBob25lIjoiMTg2NjU3MzYzMTUiLCJwYXNzd29yZCI6IjBiMWRiOGNhYThmMTI2YWZjYzlhNTU1ZDNjMDMyODlhIiwic3RhdHVzIjoxLCJ1c2VybmFtZSI6bnVsbCwidmlwX2xldmVsIjowLCJ2aXBfZGF0ZSI6bnVsbCwicG9ydGFsX2lkIjoxMDAzMCwicG9ydGFsX2lkX2JrIjowLCJsb2dpbl90aW1lcyI6MSwibWVyY2hhbnRfaWQiOjY2Mzg2MTc5OTAsIm1lcmNoYW50X2lkX2JrIjowLCJpc19iaW5kIjoxLCJpc19kaXN0cmlidXRlIjoxLCJjcmVhdGVfdGltZSI6IjIwMTktMDgtMjkgMTk6MjU6MDIiLCJ1cGRhdGVfdGltZSI6IjIwMTktMDgtMjkgMTk6MjU6MDIifQ.cbb684d25e503d0b7beee5f781a47c62454331554129122bfe2568142b5861ea';
 
       let goodId = obj.goodId ? obj.goodId : this.goodId
-      this.$loadingTip('加载中...')
+      // this.$loadingTip('加载中...')
       let header = { AUTHORIZATION: token, 'api-version': obj.version }
       this.$post(
         '/api/casual-goods-detail',
@@ -159,7 +160,7 @@ export default {
 <style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.7s;
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
   opacity: 0;

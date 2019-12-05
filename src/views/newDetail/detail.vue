@@ -5,7 +5,7 @@
       class="content"
       :class="{'active1':info!=null,'none':info.goods_img_arr!==null||info.goods_img_arr.length===1}"
     >
-      <banner-vue v-if="info" :banner="info.goods_img_arr"></banner-vue>
+      <banner-vue v-if="info" :banner="info.goods_img_arr" :version="'1.5.3'"></banner-vue>
       <div
         class="detail"
         v-if="info"

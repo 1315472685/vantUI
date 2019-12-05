@@ -10,6 +10,7 @@
         <banner-vue
           @flag="flagFun"
           v-else-if="info&&info.goods_img_arr!==null"
+          :version="linkObj.version"
           :banner="info.goods_img_arr"
         ></banner-vue>
         <div
@@ -69,7 +70,7 @@ export default {
       height: '10rem',
       t: [{ loot_end: 1560783900000, type_id: 3 }],
       info: null,
-      goodId: '6748463170', // 第三方京东
+      goodId: '6754228231', // 第三方京东
       // goodId: '6748463047', // 第三方淘宝
       // goodId: '6748463149', // 第三方天猫
       // goodId: '6706703244', // 聚宝
@@ -84,7 +85,7 @@ export default {
     }
   },
   created () {
-    // this.getList()
+    this.getList()
     if (checkUA().isAndroid) {
       this.isAndroid = true
     } else if (checkUA().isIOS) {
@@ -111,7 +112,7 @@ export default {
       obj.sku = decodeURI(obj.sku)
       this.linkObj = obj
       let goodId = obj.goodId ? obj.goodId : this.goodId
-      this.$loadingTip('加载中...')
+      // this.$loadingTip('加载中...')
       let header = { AUTHORIZATION: obj.token, 'api-version': obj.version }
       this.$post('/api/goods-details/', { goods_id: goodId }, header).then(
         res => {
@@ -185,7 +186,7 @@ export default {
 <style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.7s;
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
   opacity: 0;

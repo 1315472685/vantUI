@@ -19,6 +19,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/font/font.css";
 * {
   font-style: normal;
   padding: 0;

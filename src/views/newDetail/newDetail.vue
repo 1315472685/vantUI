@@ -23,10 +23,13 @@
           </div>-->
 
           <!-- 聚宝折上折详情 -->
+
           <good-info
             :t="t"
             :info="info"
             :skuText="skuText"
+            :version="linkObj.version"
+            :isAndroid="isAndroid"
             v-if="Number(info.module_id)===1||Number(info.module_id)===2"
             @flag="flagFun"
           ></good-info>
@@ -34,9 +37,11 @@
           <third-info
             v-if="Number(info.module_id)===6||Number(info.module_id)===7||Number(info.module_id)===8||Number(info.module_id)===9||Number(info.module_id)===10"
             :info="info"
+            :isAndroid="isAndroid"
             @flag="flagFun"
           ></third-info>
           <!-- 详情 -->
+
           <pic-desc :description="info.description"></pic-desc>
         </div>
       </div>
@@ -70,18 +75,19 @@ export default {
       height: '10rem',
       t: [{ loot_end: 1560783900000, type_id: 3 }],
       info: null,
-      goodId: '6754228231', // 第三方京东
+      // goodId: '6762191619', // 第三方京东
       // goodId: '6748463047', // 第三方淘宝
       // goodId: '6748463149', // 第三方天猫
-      // goodId: '6706703244', // 聚宝
+      // goodId: '6754403148', // 聚宝
       // goodId: '6689449218', // 折上折铜币
       // goodId: '6651592665', // 折上折金币
-      // goodId: '6640515940', // 折上折银币
+      goodId: '6758861806', // 折上折银币
       // goodId: '6615582458', // 限时抢购
       linkObj: null,
       skuText: '',
       giftTime: null,
-      nowTime: null
+      nowTime: null,
+      isAndroid: null
     }
   },
   created () {

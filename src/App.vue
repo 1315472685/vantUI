@@ -37,7 +37,9 @@ export default {
   background: #000 !important;
 }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "microsoft yahei", "Heiti SC", Helvetica, HelveticaNeue,
+    Droidsansfallback, "Droid Sans", Dengxian, Segoe;
+  // font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -46,19 +46,19 @@
     img {
       display: block;
       width: 100%;
+
+
     }
 
     span.t {
       margin-right: 5px;
       color: #fff;
-      font-size: 20px;
-      top: 0.6rem;
-      left: 4.2rem;
+      font-size: 16px;
     }
 
     div.span {
       position: absolute;
-      top: 12px;
+      top: 16px;
       left: 102px;
     }
 
@@ -81,7 +81,7 @@
   .price {
     display: flex;
     align-items: flex-end;
-    padding: 0 16px 6px;
+    padding: 10px 16px 12px;
 
     .biprice {
       padding: 3px 0;
@@ -172,6 +172,7 @@
         }
 
         h3 {
+          margin-left: -5px;
           font-size: 26px;
           font-weight: bold;
         }
@@ -419,6 +420,15 @@
 
 .giftInfo .infoL .price .currency .ratio {
   flex: 1
+}
+
+.giftInfo .infoL .price {
+  padding-bottom: 6px;
+}
+
+.infoL.isAndroid .price .currency .ratio b {
+  font-size: 18px;
+  margin-right: 3px;
 }
 
 .giftInfo .infoL .price .currency {

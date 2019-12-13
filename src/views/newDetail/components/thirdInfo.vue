@@ -1,6 +1,7 @@
 <template>
   <div
     class="thirdDetail thirdInfo infoL"
+    :class="{'isAndroid':isAndroid}"
     v-if="Number(info.module_id)===6||Number(info.module_id)===7||Number(info.module_id)===8||Number(info.module_id)===9||Number(info.module_id)===10"
   >
     <div class="price">
@@ -58,7 +59,7 @@
 <script>
 export default {
   name: 'thirdInfo',
-  props: ['info'],
+  props: ['info', 'isAndroid'],
   methods: {
     flagFun (i) {
       this.$emit('flag', i)

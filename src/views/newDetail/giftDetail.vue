@@ -24,7 +24,7 @@
 
           <!-- 聚宝折上折详情 -->
           <div class="detail active" v-if="info">
-            <gift-info @flag="flagFun" :info="info" :skuText="skuText"></gift-info>
+            <gift-info @flag="flagFun" :info="info" :isAndroid="isAndroid" :skuText="skuText"></gift-info>
 
             <!-- 详情 -->
             <pic-desc :description="info.goods.description"></pic-desc>
@@ -59,11 +59,12 @@ export default {
       height: '10rem',
       t: [{ loot_end: 1560783900000, type_id: 3 }],
       info: null,
-      goodId: '6754251492', // 1212 673
+      goodId: '1368', // 1212 673 1368
       linkObj: null,
       skuText: '',
       giftTime: null,
-      nowTime: null
+      nowTime: null,
+      isAndroid: null
     }
   },
   created () {
@@ -103,7 +104,8 @@ export default {
       let header = { AUTHORIZATION: token, 'api-version': obj.version }
       this.$post(
         '/api/casual-goods-detail',
-        { casual_id: goodId, order_id: obj.orderId },
+        // { casual_id: goodId, order_id: obj.orderId },
+        { casual_id: goodId, order_id: 0 },
         header
       ).then(res => {
         this.$clearTip()
@@ -148,7 +150,7 @@ export default {
       }
       this.$get('/api/goods-lists', aaaa, {
         AUTHORIZATION: '',
-        'api-version': '1.5.7'
+        'api-version': '1.5.8'
       }).then(res => {
         console.log(res)
       })

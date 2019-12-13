@@ -3,15 +3,20 @@
     <div class="giftDate">
       <img v-if="info.goods.module_id===3" src="@/assets/img/suishouli.png" alt />
       <img v-if="info.goods.module_id===11" src="@/assets/img/zunxiangli.png" alt />
+      <img v-if="info.goods.module_id===13" src="@/assets/img/lipintiema.png" alt />
       <div class="span">
         <span class="t" v-text="'有效期至  '+info.expire_time"></span>
       </div>
     </div>
-    <div class="infoL" v-if="info">
+    <div class="infoL" :class="{'isAndroid':isAndroid}" v-if="info">
       <div class="price">
         <div class="currency">
-          <div class="ratio">
+          <!-- <div class="ratio">
             <h3 v-text="'￥'+info.goods.sale_price"></h3>
+          </div>-->
+          <div class="ratio">
+            <b>￥</b>
+            <h3>{{info.goods.sale_price}}</h3>
           </div>
           <!-- v-if="info.goods.is_presell===1" -->
           <b v-if="info.goods.is_presell===1" class="advanceSale">预售:{{info.goods.booking_time}}发货</b>
@@ -21,6 +26,7 @@
         <div class="title">
           <img v-if="info.goods.module_id===3" src="@/assets/img/icon_sui.png" alt />
           <img v-if="info.goods.module_id===11" src="@/assets/img/icon_zun.png" alt />
+          <img v-if="info.goods.module_id===13" src="@/assets/img/icon_tiema.png" alt />
           <h3 v-text="info.goods.goods_name"></h3>
         </div>
       </div>
@@ -57,7 +63,7 @@
 <script>
 export default {
   name: 'giftInfo',
-  props: ['info', 'skuText'],
+  props: ['info', 'skuText', 'isAndroid'],
   methods: {
     flagFun (i) {
       this.$emit('flag', i)

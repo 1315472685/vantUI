@@ -10,19 +10,26 @@
         <span class="span" v-text="t[0].sec"></span>
       </div>
     </div>
-    <div class="infoL" v-if="info">
+    <div class="infoL" :class="{'isAndroid':isAndroid}" v-if="info">
       <div class="price">
         <div class="currency">
           <!-- 折上折 -->
           <template v-if="info.module_id==2">
             <!-- currenCopper -->
-            <div class="currencyG">
+            <!-- 1.6.0之前 -->
+            <div v-if="Number(this.version.split('.').join(''))<160" class="currencyG">
               <img v-if="info.points.coin_type==1" src="@/assets/img/currenKing1.png" alt="货币" />
               <img v-if="info.points.coin_type==2" src="@/assets/img/currenCopper.png" alt="货币" />
               <img v-if="info.points.coin_type==3" src="@/assets/img/currenSilver.png" alt="货币" />
               <span v-text="info.points.coins"></span>
               <i class="icon iconfont">+</i>
+
               <b>￥{{info.sale_price}}</b>
+            </div>
+            <!-- 1.6.0之后 -->
+            <div v-else class="ratio">
+              <b>￥</b>
+              <h3>{{info.sale_price}}</h3>
             </div>
           </template>
           <!-- 聚宝 -->
@@ -93,7 +100,10 @@
 <script>
 export default {
   name: 'goodInfo',
-  props: ['info', 'skuText', 't'],
+  props: ['info', 'skuText', 't', 'version', 'isAndroid'],
+  created () {
+    Number(this.version.split('.').join(''))
+  },
   methods: {
     flagFun (i) {
       this.$emit('flag', i)

@@ -46,14 +46,15 @@ export default {
         if (i) {
           // 打开
           this.flag = true
+          this.bannerIndex = this.index
           this.$emit('flag', 'banner')
         } else if (this.flag) {
           // 关闭
           this.flag = false
           this.$emit('flag', 'close')
+          this.index = this.bannerIndex
         }
         this.show = i
-        this.index = this.bannerIndex
       }
     }
   }
@@ -66,6 +67,7 @@ export default {
 img.goodPic {
   display: block;
   width: 100%;
-  height: auto;
+  height: 375px;
+  object-fit: cover;
 }
 </style>

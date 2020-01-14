@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import newDetail from './views/newDetail/newDetail'
 import detail from './views/newDetail/detail'
 import giftDetail from './views/newDetail/giftDetail'
+import test from './views/test'
 
 Vue.use(Router)
 
@@ -10,6 +11,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'test',
+      component: test
+    },
+    {
+      path: '/detail',
       name: 'detail',
       component: detail
     },

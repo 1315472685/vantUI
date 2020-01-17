@@ -4,6 +4,7 @@ import newDetail from './views/newDetail/newDetail'
 import detail from './views/newDetail/detail'
 import giftDetail from './views/newDetail/giftDetail'
 import test from './views/test'
+import list from './views/list'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'test',
       component: test
+    },
+    {
+      path: '/list',
+      name: 'list',
+      component: list
     },
     {
       path: '/detail',

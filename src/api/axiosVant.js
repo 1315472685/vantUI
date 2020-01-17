@@ -11,7 +11,8 @@ function sortFn1 (url, obj, method, headers) {
   headers['X-Ca-Timestamp'] = nowDate
   var data = JSON.parse(JSON.stringify(obj))
 
-  let link = `url=${url}`
+  let link = `url=/api${url}`
+
   if (data) { // 有参数
     let objKey = Object.keys(data)
     let arrSort = []

@@ -1,9 +1,16 @@
 import axios from 'axios'
 import { errorTip } from '@/api/axiosVant'
 const service = axios.create({
+  baseURL: process.env.VUE_APP_BASE_API,
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 100000 // request timeout
+  timeout: 100000, // request timeout
+  headers: {
+    'Cache-Control': 'no-cache, no-store, must-revalidate'
+  }
 })
+console.log(process.env)
+console.log(process.env.VUE_APP_BASE_API)
+console.log(process.env.NODE_ENV)
 let noTip = false// 是否提示错误信息
 // request interceptor
 service.interceptors.request.use(

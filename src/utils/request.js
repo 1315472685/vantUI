@@ -3,6 +3,7 @@ import { errorTip } from '@/api/axiosVant'
 console.log(process.env)
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
+  // baseURL: '/api',
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 100000, // request timeout
   headers: {

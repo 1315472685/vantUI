@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.056c205173e30bd3a5738c27f458169b.js"
+  "precache-manifest.d0cef672cfcfc57288c68a2c678439e3.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vuepro"});

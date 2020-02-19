@@ -4,10 +4,9 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import 'lib-flexible'
-import { Circle, Field, Toast } from 'vant'
-Vue.use(Circle)
-Vue.use(Field)
-Vue.use(Toast)
+import vant from './vant/vant'
+
+Vue.use(vant)
 
 Vue.config.productionTip = false
 

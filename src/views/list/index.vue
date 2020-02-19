@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <img src="../../assets/logo.png" />
     <template v-if="list">
       <van-list
         :error.sync="error"

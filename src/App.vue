@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <router-view />
+    <div class="box"></div>
+
+    <div id="nav">
+      <router-link to="/">Home</router-link>|
+      <router-link to="/about">About</router-link>|
+      <router-link to="/about1">About1</router-link>
+    </div>
+
+    <router-view :key="key" />
   </div>
 </template>
 <script>
@@ -12,9 +20,26 @@ export default {
     // console.log(window.screen.availHeight)
     this.boxHeightFn(window.screen.availHeight)
   },
+  computed: {
+    key () {
+      // 只要保证 key 唯一性就可以了，保证不同页面的 key 不相同
+      return this.$route.fullPath
+    }
+  },
   methods: {
     ...mapMutations(['boxHeightFn'])
   }
+
+  // created () {
+  //   let screenW = window.screen.width;
+
+  //   if (screenW > 414) {
+  //     screenW = 414
+  //   }
+  //   console.log(screenW)
+  //   document.getElementsByTagName("html")[0].style.fontSize =
+  //     screenW / 16 + "px";
+  // }
 }
 </script>
 

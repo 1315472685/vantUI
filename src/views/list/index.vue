@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <!--  -->
     <template v-if="list">
       <van-list
         :error.sync="error"
@@ -41,6 +42,7 @@ export default {
       // setTimeout(() => {
       this.loading = true
       this.getList()
+
       // }, 2000)
     },
     getList () {
@@ -63,6 +65,7 @@ export default {
           } else {
             this.list = [...this.list, ...res.data.data]
           }
+          console.log(this.list)
 
           this.$nextTick(() => {
             if (this.page === 5) {

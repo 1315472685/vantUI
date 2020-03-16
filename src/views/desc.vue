@@ -1,0 +1,11 @@
+<template>
+  <div>
+    <H2>分支集合</H2>按需加载
+    相同组件切换不执行creact生命周期问题
+    打包优化
+    sass
+    移动端适配
+    引入第三方字体
+    webpack:axios取消请求
+  </div>
+</template>

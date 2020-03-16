@@ -17,21 +17,21 @@ module.exports = {
 
   lintOnSave: process.env.NODE_ENV === 'development', // 设置为 true 时，eslint-loader 会将 lint 错误输出为编译警告。默认情况下，警告仅仅会被输出到命令行，且不会使得编译失败。
   productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
-  chainWebpack: config => {
-    // ============压缩图片 start============
-    config.module
-      .rule('images')
-      .use('image-webpack-loader')
-      .loader('image-webpack-loader')
-      .options({ bypassOnDebug: true })
-      .end()
-    // ============压缩图片 end============
-  },
+  // chainWebpack: config => {
+  //   // ============压缩图片 start============
+  //   config.module
+  //     .rule('images')
+  //     .use('image-webpack-loader')
+  //     .loader('image-webpack-loader')
+  //     .options({ bypassOnDebug: true })
+  //     .end()
+  //   // ============压缩图片 end============
+  // },
   // devServer:{
   //     host:'0.0.0.0'
   // }
   devServer: {
-    // host: '0.0.0.0',
+    host: '0.0.0.0',
     // host: '192.168.0.103',
     port: 8080,
     open: true,

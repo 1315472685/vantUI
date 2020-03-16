@@ -4,7 +4,10 @@ import md5 from 'js-md5'
 let nowDate = parseInt(new Date().getTime() / 1000)
 // 拼接签名
 function sortFn1 (url, obj, method, headers) {
-  console.log(headers)
+  // console.log(headers)
+  if (!headers) {
+    headers = {}
+  }
   if (!headers['api-version']) {
     headers['api-version'] = '1.5.3'
   }
@@ -44,7 +47,7 @@ function sortFn1 (url, obj, method, headers) {
     }
   }
   // 拼接完成
-  console.log(Number(headers['api-version'].split('.').join('')))
+  // console.log(Number(headers['api-version'].split('.').join('')))
   if (Number(headers['api-version'].split('.').join('')) >= 158) {
     if (!data && method === 'get') {
       link += `?timestamp=${nowDate}`
@@ -54,7 +57,7 @@ function sortFn1 (url, obj, method, headers) {
   }
 
   link += '&sign_secret=NevJKwg1DzKmU4jxvjQ7tAqigjc2IRvPMgHS9pwRGeEgoP11uz2sPsHr3BkOzo4rLwvXsjphKNWGfvrLSpdWcHgoJoOrr7UgD9w'
-  console.log(link)
+  // console.log(link)
   if (!headers) {
     headers = {}
     headers['X-Ca-Signature'] = md5(link).toUpperCase()

@@ -55,6 +55,15 @@ export default {
   -webkit-appearance: none;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
+#nav {
+  text-align: center;
+  font-family: Oswald;
+  color: $yellowColor;
+  a {
+    padding: 0 6px;
+    color: $yellowColor;
+  }
+}
 .van-swipe__indicator {
   background: #000 !important;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <img src="../../assets/logo.png" />
+    <img src="@/assets/img/1.png" />
     <template v-if="list">
       <van-list
         :error.sync="error"
@@ -87,4 +87,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+img {
+  width: 100%;
+}
 </style>

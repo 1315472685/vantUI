@@ -5,6 +5,8 @@ import store from './store'
 import './registerServiceWorker'
 import 'lib-flexible'
 import vant from './components/vantUI/vant'
+import globalComponent from './components/global'
+Vue.use(globalComponent)
 Vue.use(vant)
 
 Vue.config.productionTip = false

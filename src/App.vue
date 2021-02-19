@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="box"></div>
+    <!-- <div class="box"></div> -->
 
     <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  name: 'App',
+  name: 'App'
   // created () {
   //   let screenW = window.screen.width;
 
